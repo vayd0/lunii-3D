@@ -1,0 +1,505 @@
+body {
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@font-face {
+  font-family: 'CC Monster';
+  src: local('CCThisManThisMonster W00 Rg'), local('CCThisManThisMonster-Regular'), url('/fonts/cc-monster.ttf') format('truetype');
+  font-display: swap;
+}
+
+.badge {
+  position: absolute;
+  left: 0;
+  bottom: 14px;
+  transform: translateX(-50%);
+}
+
+.badge > div {
+  position: relative;
+  padding: 10px 18px 8px;
+  border-radius: 14px;
+  background: #ffcb3d;
+  border: 3px solid #161a24;
+  color: #7731ff;
+  font: 28px/1 'CC Monster', 'Comic Sans MS', system-ui;
+  text-transform: uppercase;
+  white-space: nowrap;
+  box-shadow: 0 5px 0 #161a24;
+  transform-origin: 50% 130%;
+  animation: pop 0.45s cubic-bezier(0.34, 1.8, 0.5, 1) both;
+}
+
+.badge > div::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -17px;
+  width: 18px;
+  height: 18px;
+  background: #ffcb3d;
+  border-right: 3px solid #161a24;
+  border-bottom: 3px solid #161a24;
+  transform: translateX(-50%) rotate(45deg);
+}
+
+@keyframes pop {
+  0% { transform: scale(0) rotate(-8deg); opacity: 0; }
+  60% { opacity: 1; }
+  100% { transform: scale(1) rotate(0); }
+}
+
+.score {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 50;
+  padding: 10px 18px 8px;
+  border-radius: 14px;
+  background: #fff;
+  color: #6a2ef0;
+  font: 20px/1 'CC Monster', 'Comic Sans MS', system-ui;
+  text-transform: uppercase;
+  box-shadow: 0 4px 16px #0003;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.score-star {
+  width: 30px;
+  height: 30px;
+}
+
+.score b {
+  font-size: 30px;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.plus {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  z-index: 60;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  perspective: 900px;
+}
+
+.plus-spin {
+  position: absolute;
+  left: -220px;
+  top: -53px;
+  width: 440px;
+  height: 106px;
+  transform-style: preserve-3d;
+}
+
+.plus-spin > div {
+  position: absolute;
+  inset: 0;
+}
+
+.plus-spin svg {
+  width: 440px;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 600px) {
+  .plus-spin {
+    left: -120px;
+    top: -29px;
+    width: 240px;
+    height: 58px;
+  }
+
+  .plus-spin svg {
+    width: 240px;
+  }
+}
+
+.back {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 50;
+  padding: 10px 18px 8px;
+  border: 0;
+  border-radius: 14px;
+  background: #fff;
+  color: #6a2ef0;
+  font: 20px/1 'CC Monster', 'Comic Sans MS', system-ui;
+  text-transform: uppercase;
+  box-shadow: 0 4px 16px #0003;
+  cursor: pointer;
+  animation: pop 0.45s cubic-bezier(0.34, 1.8, 0.5, 1) both;
+}
+
+.back:hover {
+  background: #ffcb3d;
+}
+
+.login {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(12, 8, 30, 0.45);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  font-family: system-ui, sans-serif;
+}
+
+.bluni-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 12px;
+  background: #6c26ff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bluni-btn img {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: #fff;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.oauth {
+  width: min(400px, 100%);
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  border-radius: 10px;
+  background: #1e1b2e;
+  color: #dcd8ec;
+  box-shadow: 0 12px 40px #0008;
+  font-size: 14px;
+}
+
+.oauth-body {
+  padding: 28px 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: center;
+}
+
+.oauth h2 {
+  margin: 4px 0 0;
+  color: #fff;
+  font-size: 22px;
+}
+
+.oauth h3 {
+  margin: 0;
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #a9a3c4;
+}
+
+.oauth p {
+  margin: 0;
+}
+
+.oauth-sub {
+  color: #a9a3c4;
+}
+
+.oauth hr {
+  width: 100%;
+  border: 0;
+  border-top: 1px solid #ffffff14;
+  margin: 8px 0;
+}
+
+.oauth-logo {
+  width: 72px;
+  height: 72px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.oauth-logo.spin {
+  animation: spin 1s linear infinite;
+}
+
+.oauth-avatars {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.oauth-avatars span,
+.oauth-avatars img {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  color: #fff;
+  font: 26px/1 'CC Monster', 'Comic Sans MS', system-ui;
+}
+
+.oauth-app {
+  box-sizing: border-box;
+  padding: 12px;
+  background: #6c26ff;
+  object-fit: contain;
+}
+
+.oauth-user {
+  background: #fff;
+}
+
+.oauth-avatars i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #5c5675;
+}
+
+.oauth ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.oauth-perms li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #dcd8ec;
+}
+
+.oauth-perms span {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.oauth-perms .ok span {
+  background: #3ba55d;
+}
+
+.oauth-perms .no span {
+  background: #5c5675;
+}
+
+.oauth-info {
+  font-size: 12px;
+  color: #8e88a8;
+}
+
+.oauth-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  background: #17152a;
+}
+
+.oauth-cancel {
+  border: 0;
+  background: none;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.oauth-ok {
+  padding: 10px 22px;
+  border: 0;
+  border-radius: 4px;
+  background: #6c26ff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.oauth-ok:hover {
+  background: #5a1ee0;
+}
+
+.loader,
+.loader-white {
+  position: fixed;
+  inset: 0;
+  clip-path: circle(150% at 50% 50%);
+}
+
+.loader {
+  z-index: 100;
+  background: #6c26ff;
+}
+
+.loader-white {
+  display: grid;
+  place-items: center;
+  background: #fff;
+}
+
+.loader-anim {
+  position: relative;
+  width: min(160px, 40vw);
+}
+
+.loader-anim img,
+.loader-anim video {
+  display: block;
+  width: 100%;
+  clip-path: inset(1px 1px 4px 1px);
+}
+
+.loader-anim video {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.loader-anim video.on {
+  opacity: 1;
+}
+
+.loader video::-webkit-media-controls,
+.loader video::-webkit-media-controls-panel,
+.loader video::-webkit-media-controls-overlay-play-button,
+.loader video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+.loader.done {
+  pointer-events: none;
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.8s cubic-bezier(0.7, 0, 0.3, 1) 0.75s;
+}
+
+.loader.done .loader-white {
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.7s cubic-bezier(0.7, 0, 0.3, 1) 0.5s;
+}
+
+.loader.done .loader-anim {
+  animation: drive-off 0.75s cubic-bezier(0.5, 0, 0.75, 0) forwards;
+}
+
+@keyframes drive-off {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-18px) scaleX(0.94); }
+  100% { transform: translateX(70vw) skewX(-14deg) scaleX(1.15); opacity: 0.6; }
+}
+
+.player {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 340px;
+  box-sizing: border-box;
+  padding: 12px 16px 12px 12px;
+  border-radius: 18px;
+  background: #fff;
+  color: #6a2ef0;
+  box-shadow: 0 4px 16px #0003;
+  font-family: system-ui, sans-serif;
+  animation: pop 0.45s cubic-bezier(0.34, 1.8, 0.5, 1) both;
+}
+
+.player-play {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: #6c26ff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.player-mid {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.player-title {
+  font: 18px/1 'CC Monster', 'Comic Sans MS', system-ui;
+  text-transform: uppercase;
+}
+
+.player-bar {
+  height: 5px;
+  border-radius: 3px;
+  background: #ece6ff;
+  overflow: hidden;
+}
+
+.player-bar i {
+  display: block;
+  height: 100%;
+  background: #6c26ff;
+}
+
+.player-time {
+  font-size: 11px;
+  color: #8e88a8;
+  font-variant-numeric: tabular-nums;
+}
+
+.player-vol {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.player-vol input {
+  width: 70px;
+  accent-color: #6c26ff;
+}
+
+@media (max-width: 600px) {
+  .player {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+    width: auto;
+  }
+}
