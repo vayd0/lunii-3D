@@ -123,10 +123,8 @@ function Region({ feature, color, selected, focus, open, inside, onSelect, onHov
     if (hovered) gaze.set(...at)
     else if (gaze.x === at[0] && gaze.z === at[2]) gaze.copy(HOME)
     gsap.to(ref.current.position, { y, duration: 0.4, ease: 'power2.out', overwrite: true })
-    if (hovered) {
-      gsap.fromTo(special.current.rotation, { y: 0 }, { y: Math.PI * 2, duration: 0.9, ease: 'back.out(1.4)', overwrite: true })
-      gsap.fromTo(special.current.scale, { x: 1, y: 1, z: 1 }, { x: 1.35, y: 1.35, z: 1.35, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out', overwrite: true })
-    }
+    const k = hovered ? 1.12 : 1
+    gsap.to(special.current.scale, { x: k, y: k, z: k, duration: 0.35, ease: 'back.out(2)', overwrite: true })
   }, [hovered])
 
   const click = (e) => {
@@ -464,7 +462,7 @@ function prep(city) {
   return v
 }
 
-const CITIES = ['marseille', 'paris', 'nord']
+const CITIES = ['marseille', 'paris', 'nord', 'besancon']
 
 const pause = () => new Promise((r) => setTimeout(r, 0))
 
@@ -629,7 +627,7 @@ function Game({ onPick, onBack, visited, authed }) {
   const bulb = useRef()
   const rig = useRef()
   const beamRef = useRef()
-  const city = { 11: 'paris', 32: 'nord' }[sel?.code] || 'marseille'
+  const city = { 11: 'paris', 27: 'besancon', 32: 'nord' }[sel?.code] || 'marseille'
   const focus = sel?.at || ZERO
 
   useEffect(() => {

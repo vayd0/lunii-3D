@@ -1,5 +1,6 @@
 import * as THREE from 'three'
 import { nordLandscape } from './nord'
+import { besanconLandscape } from './besancon'
 
 export function buildVoiture(city = 'marseille') {
   const was = THREE.ColorManagement.enabled
@@ -422,7 +423,7 @@ export function buildVoiture(city = 'marseille') {
     const paris = city === 'paris';
     const V = nord ? 55 : 40;
     const GY = -0.22;
-    const curveU = { value: nord ? 0.00004 : 0.000135 };
+    const curveU = { value: nord ? 0.00004 : city === 'besancon' ? 0.00006 : 0.000135 };
     let seed = 20261112;
     const rnd = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed / 2147483648; };
     const rr = (a, b) => a + rnd() * (b - a);
@@ -503,8 +504,9 @@ export function buildVoiture(city = 'marseille') {
     };
     const mv = (g, z, v) => { movers.push({ g: g, z: z, v: v == null ? V : v }); world.add(g); return g; };
 
-    const far = nord ? nordLandscape({ world, add, toon, PUT, LP, merge, facetMat, jc, rr, rnd, pick, TAU, trunkSeg, mv, GY, SPAN, flatG, wheelG }) : null;
-    if (!nord) {
+    const land = { nord: nordLandscape, besancon: besanconLandscape }[city];
+    const far = land ? land({ world, add, toon, PUT, LP, merge, facetMat, jc, rr, rnd, pick, TAU, trunkSeg, mv, GY, SPAN, flatG, wheelG, sstep, gm, curveU }) : null;
+    if (!land) {
       const roadMat = toon(0x5A5E66), lineMat = toon(0xE9E8E2);
       add(new THREE.PlaneGeometry(87, 2400, 12, 240), roadMat, world, [-28.5, GY, 0], null, [-Math.PI / 2, 0, 0]);
       add(new THREE.PlaneGeometry(5.6, 2400, 1, 240), toon(0xA59A6E), world, [-30.5, GY + 0.04, 0], null, [-Math.PI / 2, 0, 0]);
@@ -898,7 +900,7 @@ export function buildVoiture(city = 'marseille') {
     };
     })();
     const kinds = () => { const r = rnd(); return r < 0.72 ? 'car' : r < 0.88 ? 'van' : r < 0.94 ? 'bus' : 'truck'; };
-    (nord ? [[-11, 2 * V, 6, false], [0, 0, 1, true]] : [[-11, -9, 5, true], [-22, 6, 8, false], [-39, 2 * V, 9, false], [-50, 2 * V, 10, false], [-61, 2 * V, 8, false], [0, 0, 1, true]]).forEach((lane) => {
+    ({ nord: [[-11, 2 * V, 6, false], [0, 0, 1, true]], besancon: [[-11, -9, 6, false], [0, 0, 1, true], [-366, 12, 8, false], [-385, 2 * V, 9, false]] }[city] || [[-11, -9, 5, true], [-22, 6, 8, false], [-39, 2 * V, 9, false], [-50, 2 * V, 10, false], [-61, 2 * V, 8, false], [0, 0, 1, true]]).forEach((lane) => {
       const n = lane[2], gap = SPAN / n;
       for (let k = 0; k < n; k++) {
         const veh = mkVehicle(lane[3] ? 'car' : kinds());
@@ -929,6 +931,8 @@ export function buildVoiture(city = 'marseille') {
       world.add(m);
     };
     if (nord) {
+    } else if (city === 'besancon') {
+      ridge(-3000, 260, 420, 1.3, 0x6F8C80, 0xAFC3CC, -0.5);
     } else if (!paris) {
       ridge(-1300, 260, 470, 0.7, 0x8A98B0, 0xC7D1DC, -0.6);
       ridge(-820, 110, 210, 2.1, 0x7E8E95, 0xBAC6CC, -0.8);
@@ -1278,7 +1282,7 @@ export function buildVoiture(city = 'marseille') {
       mouthG.scale.set(1 + (1 - hum) * 0.25, hum, 1);
     };
 
-    return { scene, car, world, dome, clouds: skyClouds, movers: movers.map((m) => m.g), char, camTarget, update, fog: nord ? [600, 4600] : [320, 2300], reach: nord ? 6000 : 1600 };
+    return { scene, car, world, dome, clouds: skyClouds, movers: movers.map((m) => m.g), char, camTarget, update, fog: nord ? [600, 4600] : land ? [900, 4700] : [320, 2300], reach: land ? 6000 : 1600 };
 
   } finally {
     THREE.ColorManagement.enabled = was
