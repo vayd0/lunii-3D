@@ -503,3 +503,44 @@ body {
     width: auto;
   }
 }
+
+.download {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px 8px;
+  border-radius: 14px;
+  background: #6c26ff;
+  color: #fff;
+  font: 18px/1 'CC Monster', 'Comic Sans MS', system-ui;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 4px 16px #0003;
+  animation: pop 0.45s cubic-bezier(0.34, 1.8, 0.5, 1) both;
+}
+
+.download:hover {
+  background: #5a1ee0;
+}
+
+.back {
+  top: 80px;
+}
+
+@media (max-width: 600px) {
+  .download {
+    top: 16px;
+    left: 12px;
+    padding: 9px 12px 7px;
+    font-size: 15px;
+  }
+
+  .back {
+    top: 66px;
+    left: 12px;
+  }
+}

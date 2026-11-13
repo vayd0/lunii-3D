@@ -17,6 +17,7 @@ import { Login } from './login'
 import { Player, unlockStory } from './player'
 
 const DEPTH = 0.45
+const APP_URL = '#'
 const PHONE = typeof window !== 'undefined' && matchMedia('(pointer: coarse)').matches
 const SHADOW = PHONE ? 1024 : 2048
 const SPOT = { power: 190, spread: 35, soft: 0, beam: 100 }
@@ -755,6 +756,14 @@ export default function Scene() {
     <>
       <Game key={round} onPick={pick} onBack={back} visited={visited} authed={authed} />
       {authed && <Points hit={hits} />}
+      {authed && (
+        <a className="download" href={APP_URL} target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 4v11M7 10.5l5 5 5-5M5 20h14" />
+          </svg>
+          Télécharger l&apos;application
+        </a>
+      )}
       {!authed && <Login onDone={() => setAuthed(true)} />}
     </>
   )
